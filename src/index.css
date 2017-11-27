@@ -3,3 +3,12 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+
+.tasks-list li{
+  color: red;
+}
+
+.tasks-list li.completed{
+  color: green;
+}
