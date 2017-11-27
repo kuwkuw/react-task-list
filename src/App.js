@@ -65,7 +65,7 @@ class App extends Component {
         <div>
           <img style={{ width: '32px' }} src={logo} alt="logo" />
         </div>
-        <TaskFrom onTaskAdd={this.addTask.bind(this)} />
+        <TaskFrom onTaskAdd={this.addTask.bind(this)} tasks={this.state.tasks} />
         <TasksList
           tasks={this.state.tasks}
           onEditable={this.setEditable.bind(this)}
