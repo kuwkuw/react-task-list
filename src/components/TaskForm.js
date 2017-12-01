@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class TaskFrom extends Component {
+class TaskForm extends Component {
   constructor(props) {
     super(props);
     this.state = { task: '', titleInvalid: false, invalidMsg: '' };
@@ -47,4 +47,4 @@ class TaskFrom extends Component {
   }
 }
 
-export default TaskFrom;
+export default TaskForm;

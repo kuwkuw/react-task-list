@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TasksList from './components/TasksList';
-import TaskFrom from './components/TaskFrom';
+import TaskForm from './components/TaskForm';
 import logo from './logo.svg';
 import './App.css';
 
@@ -65,7 +65,7 @@ class App extends Component {
         <div>
           <img style={{ width: '32px' }} src={logo} alt="logo" />
         </div>
-        <TaskFrom onTaskAdd={this.addTask.bind(this)} tasks={this.state.tasks} />
+        <TaskForm onTaskAdd={this.addTask.bind(this)} tasks={this.state.tasks} />
         <TasksList
           tasks={this.state.tasks}
           onEditable={this.setEditable.bind(this)}
