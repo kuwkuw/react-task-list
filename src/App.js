@@ -1,62 +1,24 @@
-import React, { Component } from 'react';
-import TasksList from './components/TasksList';
-import TaskForm from './components/TaskForm';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import { createStore } from 'redux'
+
+import todoApp from './store/reducers'
+import TasksList from './components/TasksList'
+import TaskForm from './components/TaskForm'
+import logo from './logo.svg'
+import './App.css'
+
+let store = createStore(todoApp)
 
 class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { tasks: [] }
-  }
-
-  addTask(task) {
-    this.setState((prevSate, props) => {
-      prevSate.tasks.push({ title: task, isCompleted: false, isEditable: false });
-      return {
-        tasks: prevSate.tasks
-      };
+    this.state = store.getState()
+    store.subscribe(() => {
+      this.setState(()=>{
+        return store.getState()
+      })
     })
-  }
-
-  setEditable(index) {
-    this.setState(prevSate => {
-      prevSate.tasks.forEach(task => { task.isEditable = false });
-      prevSate.tasks[index].isEditable = true;
-      return { tasks: prevSate.tasks }
-    });
-  }
-
-  cancel(index) {
-    this.setState(prevSate => {
-      prevSate.tasks[index].isEditable = false;
-      return { tasks: prevSate.tasks }
-    });
-  }
-
-  updateTask(newTaskTitle, index) {
-    this.setState(prevSate => {
-      prevSate.tasks[index].title = newTaskTitle;
-      prevSate.tasks[index].isEditable = false;
-      return { tasks: prevSate.tasks };
-    });
-  }
-
-  toggleCompleteness(index) {
-    this.setState(prevSate => {
-      prevSate.tasks[index].isCompleted = !prevSate.tasks[index].isCompleted;
-      return { tasks: prevSate.tasks }
-    });
-  }
-
-  deleteTask(index) {
-    this.setState(prevSate => {
-      prevSate.tasks.splice(index, 1);
-      return {
-        tasks: prevSate.tasks
-      };
-    });
   }
 
   render() {
@@ -65,14 +27,8 @@ class App extends Component {
         <div>
           <img style={{ width: '32px' }} src={logo} alt="logo" />
         </div>
-        <TaskForm onTaskAdd={this.addTask.bind(this)} tasks={this.state.tasks} />
-        <TasksList
-          tasks={this.state.tasks}
-          onEditable={this.setEditable.bind(this)}
-          onCancel={this.cancel.bind(this)}
-          onSave={this.updateTask.bind(this)}
-          onTaskComplete={this.toggleCompleteness.bind(this)}
-          onDelete={this.deleteTask.bind(this)} />
+        <TaskForm store={store} />
+        <TasksList todos={this.state.todos} store={store} />
       </div>
     );
   }

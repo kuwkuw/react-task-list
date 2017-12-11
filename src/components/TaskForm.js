@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { addTodo } from '../store/actions'
 
 class TaskForm extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class TaskForm extends Component {
       this.setState({ titleInvalid: true, invalidMsg: 'repeat' });
       return;
     }
-    this.props.onTaskAdd(this.state.task);
+    this.props.store.dispatch(addTodo(this.state.task))
     this.setState({ 'task': '', titleInvalid: false });
   }
 
@@ -25,7 +26,12 @@ class TaskForm extends Component {
   }
 
   checkExistingTask(newTask) {
-    return this.props.tasks.filter(task => newTask.toLocaleLowerCase() === task.title.toLocaleLowerCase()).length;
+    return this.props
+      .store
+      .getState()
+      .todos
+      .filter(task => newTask.toLocaleLowerCase() === task.title.toLocaleLowerCase())
+      .length;
   }
 
   render() {
@@ -39,8 +45,10 @@ class TaskForm extends Component {
         </div>
         <div className="form-group">
           <button className="form-control btn btn-default" >Add</button>
+        </div >
+        <div className="invalid">
+          {validationError}
         </div>
-        {validationError}
       </form>
 
     );

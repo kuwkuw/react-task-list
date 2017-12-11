@@ -1,20 +1,49 @@
 import React, { Component } from 'react';
+import { removeTodo, toggleTodo, updateTodo } from '../store/actions'
 import TaskItem from './TaskItem';
+import EditableTaskItem from './EditableTaskItem';
+
 
 class TasksList extends Component {
 
-
+  constructor(props) {
+    super(props)
+    this.state = {
+      editableElementIndex: null
+    }
+  }
 
   render() {
-    const tasksList = this.props.tasks.map((task, index) => {
-      return <TaskItem
-        key={index}
-        task={task}
-        onEditable={() => this.props.onEditable(index)}
-        onCancel={() => this.props.onCancel(index)}
-        onSave={(e) => this.props.onSave(e, index)}
-        onTaskComplete={() => this.props.onTaskComplete(index)} 
-        onDelete={()=> this.props.onDelete(index)}/>
+    const tasksList = this.props.todos.map((task, index) => {
+      if (this.state.editableElementIndex !== index) {
+        return <TaskItem
+          key={index}
+          task={task}
+          onEditable={() => {
+            this.setState(() => {
+              return { editableElementIndex: index }
+            })
+          }}
+          onTaskComplete={() => this.props.store.dispatch(toggleTodo(index))}
+          onDelete={() => this.props.store.dispatch(removeTodo(index))}
+        />
+      } else {
+        return <EditableTaskItem
+          key={index}
+          task={task}
+          onCancel={() => {
+            this.setState(() => {
+              return { editableElementIndex: null }
+            })
+          }}
+          onSave={(e) => {
+            this.props.store.dispatch(updateTodo(index, e, this.props.todos[index].isCompleted))
+            this.setState(() => {
+              return { editableElementIndex: null }
+            })
+          }}
+        />
+      }
     });
 
     return (
