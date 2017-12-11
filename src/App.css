@@ -28,6 +28,13 @@
 }
 
 
-.invalid{
+.invalid, .tasks-list li{
   color: red;
 }
+
+
+
+.tasks-list li.completed{
+  color: green;
+}
+
