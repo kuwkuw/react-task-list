@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { createStore } from 'redux'
 
-import todoApp from './store/reducers'
-import TasksList from './components/TasksList'
-import TaskForm from './components/TaskForm'
-import logo from './logo.svg'
+import todoApp from '../store/reducers'
+import TasksList from './TasksList'
+import TaskForm from '../components/TaskForm'
+import logo from '../assets/logo.svg'
 import './App.css'
 
 let store = createStore(todoApp)

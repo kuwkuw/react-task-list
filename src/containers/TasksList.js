@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { removeTodo, toggleTodo, updateTodo } from '../store/actions'
-import TaskItem from './TaskItem';
-import EditableTaskItem from './EditableTaskItem';
+import TaskItem from '../components/TaskItem';
+import EditableTaskItem from '../components/EditableTaskItem';
 
 
 class TasksList extends Component {
