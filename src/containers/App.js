@@ -1,25 +1,12 @@
 import React, { Component } from 'react'
-import { createStore } from 'redux'
 
-import todoApp from '../store/reducers'
-import TasksList from './TasksList'
-import TaskForm from '../components/TaskForm'
+import TasksListContainer from './TasksList'
+import TaskFormContainer from './TaskForm'
 import logo from '../assets/logo.svg'
 import './App.css'
 
-let store = createStore(todoApp)
 
 class App extends Component {
-
-  constructor(props) {
-    super(props);
-    this.state = store.getState()
-    store.subscribe(() => {
-      this.setState(()=>{
-        return store.getState()
-      })
-    })
-  }
 
   render() {
     return (
@@ -27,11 +14,11 @@ class App extends Component {
         <div>
           <img style={{ width: '32px' }} src={logo} alt="logo" />
         </div>
-        <TaskForm store={store} />
-        <TasksList todos={this.state.todos} store={store} />
+        <TaskFormContainer />
+        <TasksListContainer />
       </div>
     );
   }
 }
 
-export default App;
+export default App

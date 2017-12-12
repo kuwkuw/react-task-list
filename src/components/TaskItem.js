@@ -12,7 +12,7 @@ class TaskItem extends Component {
   render() {
     const unSelectedControls = (
       <div className="row">
-        <div className="col-md-9 col-xs-9" onClick={this.props.onTaskComplete} >{this.props.task.title}</div>
+        <div className="col-md-9 col-xs-9" onClick={this.props.onTaskToggle} >{this.props.task.title}</div>
         <div className="col-md-3 col-xs-3">
           <div className="row">
             <div className="col-md-6 col-xs-6">
